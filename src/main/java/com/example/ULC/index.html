@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сравнение Excel файлов</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Подключение CSS файла -->
+</head>
+<body>
+
+<div class="container">
+    <h1>Сравнение Excel файлов</h1>
+    <input type="file" id="file1" accept=".xlsx" required>
+    <input type="file" id="file2" accept=".xlsx" required>
+    <button id="compareButton">Сравнить файлы</button>
+    <div id="result"></div>
+</div>
+
+<script>
+    document.getElementById('compareButton').addEventListener('click', async () => {
+        const file1 = document.getElementById('file1').files[0];
+        const file2 = document.getElementById('file2').files[0];
+
+        if (!file1 || !file2) {
+            alert('Пожалуйста, выберите оба файла.');
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('file1', file1);
+        formData.append('file2', file2);
+
+        try {
+            const response = await fetch('/api/excel/compare', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (!response.ok) {
+                throw new Error('Ошибка при сравнении файлов');
+            }
+
+            const matches = await response.json();
+            document.getElementById('result').innerHTML = `
+                <h2>Результаты:</h2>
+                <pre>${JSON.stringify(matches, null, 2)}</pre>
+            `;
+        } catch (error) {
+            document.getElementById('result').innerHTML = `
+                <h2>Ошибка:</h2>
+                <p>${error.message}</p>
+            `;
+        }
+    });
+</script>
+
+</body>
+</html>
