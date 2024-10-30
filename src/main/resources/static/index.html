@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Сравнение Excel файлов</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Подключение CSS файла -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -37,19 +37,30 @@
             });
 
             if (!response.ok) {
-                throw new Error('Ошибка при сравнении файлов');
+                const errorMessage = await response.text(); // Получаем текст ошибки
+                throw new Error(`Ошибка: ${response.status} - ${errorMessage}`);
             }
 
+            // Читаем ответ как JSON
             const matches = await response.json();
-            document.getElementById('result').innerHTML = `
-                <h2>Результаты:</h2>
-                <pre>${JSON.stringify(matches, null, 2)}</pre>
-            `;
+            let resultHtml = '<h2>Результаты:</h2>';
+
+            if (!Object.keys(matches).length) {
+                resultHtml += '<p>Нет совпадений.</p>';
+            } else {
+                for (const [key, values] of Object.entries(matches)) {
+                    resultHtml += `<h3>Совпадение для: ${key}</h3>`;
+                    resultHtml += `<p>Значения из первого файла: ${values[0]}</p>`;
+                    resultHtml += `<p>Значения из второго файла: ${values[1]}</p>`;
+                }
+            }
+
+            document.getElementById('result').innerHTML = resultHtml;
         } catch (error) {
             document.getElementById('result').innerHTML = `
-                <h2>Ошибка:</h2>
-                <p>${error.message}</p>
-            `;
+            <h2>Ошибка:</h2>
+            <p>${error.message}</p>
+        `;
         }
     });
 </script>
