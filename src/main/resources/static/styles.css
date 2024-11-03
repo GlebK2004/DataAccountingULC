@@ -34,3 +34,13 @@ button:hover {
 #result {
     margin-top: 20px;
 }
+
+.container {
+    display: flex;
+}
+.column {
+    flex: 1; /* Равномерное распределение */
+    padding: 10px;
+    border: 1px solid #000;
+    margin: 5px;
+}
