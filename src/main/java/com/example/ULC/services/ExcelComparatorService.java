@@ -4,25 +4,27 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.*;
 
 @Service
 public class ExcelComparatorService {
 
-    public Map<String, List<List<String>>> compareExcelFiles(MultipartFile file1, MultipartFile file2) throws IOException {
+    public Map<String, List<List<String>>> compareExcelFiles(File fileYT, File file1C) throws IOException {
         Map<String, List<String>> resultYT = new HashMap<>();
         Map<String, List<String>> result1C = new HashMap<>();
         Map<String, List<List<String>>> result = new HashMap<>();
 
         // Чтение первого файла - УТ
-        try (Workbook workbook1 = new XSSFWorkbook(file1.getInputStream())) {
-            if (workbook1.getNumberOfSheets() == 0) {
+        try (Workbook workbookYT = new XSSFWorkbook(new FileInputStream(fileYT))) {
+            if (workbookYT.getNumberOfSheets() == 0) {
                 throw new IOException("В первом файле нет листов.");
             }
 
-            for (int i = 0; i < workbook1.getNumberOfSheets(); i++) {
-                Sheet sheet = workbook1.getSheetAt(i);
+            for (int i = 0; i < workbookYT.getNumberOfSheets(); i++) {
+                Sheet sheet = workbookYT.getSheetAt(i);
                 Row headerRow = sheet.getRow(1); // Получаем вторую строку (индекс 1)
 
                 if (headerRow == null) {
@@ -52,14 +54,14 @@ public class ExcelComparatorService {
             }
         }
 
-        // Чтение первого файла - УТ
-        try (Workbook workbook2 = new XSSFWorkbook(file2.getInputStream())) {
-            if (workbook2.getNumberOfSheets() == 0) {
+        // Чтение экспорта из 1С
+        try (Workbook workbook1C = new XSSFWorkbook(new FileInputStream(file1C))) {
+            if (workbook1C.getNumberOfSheets() == 0) {
                 throw new IOException("В первом файле нет листов.");
             }
 
-            for (int i = 0; i < workbook2.getNumberOfSheets(); i++) {
-                Sheet sheet = workbook2.getSheetAt(i);
+            for (int i = 0; i < workbook1C.getNumberOfSheets(); i++) {
+                Sheet sheet = workbook1C.getSheetAt(i);
                 Row headerRow = sheet.getRow(0); // Получаем вторую строку (индекс 1)
 
                 if (headerRow == null) {

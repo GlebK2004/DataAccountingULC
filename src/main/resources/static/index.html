@@ -13,8 +13,10 @@
     <input type="file" id="file1" accept=".xlsx" required>
     <input type="file" id="file2" accept=".xlsx" required>
     <button id="compareButton">Сравнить файлы</button>
-    <div id="result"></div>
 </div>
+<div id="result"></div>
+
+<button id="download_files" onclick="location.href='/groups'">Скачать</button>
 
 <script>
     document.getElementById('compareButton').addEventListener('click', async () => {
