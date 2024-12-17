@@ -1,46 +1,37 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    padding: 20px;
-    background-color: #f4f4f4;
+body{
+    background-color: #f97570;
+
 }
-h1 {
-    text-align: center;
-}
-.container {
-    max-width: 600px;
-    margin: 0 auto;
-    background: white;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-input[type="file"] {
-    margin: 10px 0;
-}
-button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-button:hover {
-    background-color: #218838;
-}
-#result {
-    margin-top: 20px;
+.texture{
+    background-image: url(/static/images/Текстура.jpg);
+    background-size: 50% auto;
 }
 
-.container {
-    display: flex;
+button.for-button {
+    background-color: white;
+    color:#f97570;
 }
-.column {
-    flex: 1; /* Равномерное распределение */
-    padding: 10px;
-    border: 1px solid #000;
-    margin: 5px;
+
+.slider {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory; /* Для плавного пролистывания */
+    width: 100%;
+    /*max-width: 800px; !* Максимальная ширина слайдера *!*/
+    border: 2px solid #ccc; /* Граница слайдера */
+    border-radius: 10px; /* Закругленные углы */
+    background-color: white; /* Цвет фона слайдера */
+}
+
+.slide {
+    min-width: 50vw; /* Минимальная ширина слайда */
+    min-height: 33.33vw; /* Высота слайда с учетом соотношения 1.5:1 */
+    position: relative; /* Для размещения изображения внутри слайда */
+    scroll-snap-align: start; /* Для корректного выравнивания */
+}
+
+.slide img {
+    width: 100%; /* Ширина изображения */
+    height: auto; /* Автоматическая высота для сохранения соотношения сторон */
+    border-radius: 10px; /* Закругленные углы изображений */
 }
