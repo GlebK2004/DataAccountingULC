@@ -15,8 +15,8 @@ import java.util.Map;
 
 @Controller
 public class ExcelController {
-    static final String idYT = "1rZOYBNWty6BTm5OFDuaRsWmdTW7QFjKHIyZpTuqx4nE";
-    static final String id1C = "1Qbh5rSJ9Xbq6-Da2gC4qQNTBgh3j97h7zracHrIgxSA";
+    static final String ID_YT = "1rZOYBNWty6BTm5OFDuaRsWmdTW7QFjKHIyZpTuqx4nE";
+    static final String ID_1C = "1Qbh5rSJ9Xbq6-Da2gC4qQNTBgh3j97h7zracHrIgxSA";
     @Autowired
     private ExcelComparatorService excelComparatorService;
     @Autowired
@@ -40,9 +40,9 @@ public class ExcelController {
 
     @GetMapping("/groups")
     public String downloadFiles() throws IOException {
-       File fileYT = downloadService.downloadExcel(idYT);
-       File file1C = downloadService.downloadExcel(id1C);
-       excelComparatorService.compareExcelFiles(file1C, fileYT);
+       File fileYT = downloadService.downloadExcel(ID_YT);
+       File file1C = downloadService.downloadExcel(ID_1C);
+       excelComparatorService.compareExcelFiles(fileYT, file1C);
        return "groups";
     }
 

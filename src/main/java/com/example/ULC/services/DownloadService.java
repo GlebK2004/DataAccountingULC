@@ -23,12 +23,13 @@ public class DownloadService {
             URL url = new URL(excelUrl);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
+            String fileName = sheetId.substring(0, Math.min(sheetId.length(), 5)) + "_output.xlsx";
 
             // Проверяем код ответа
             int responseCode = connection.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 // Скачиваем и сохраняем файл
-                File file = new File("output.xlsx");
+                File file = new File(fileName);
                 try (InputStream inputStream = connection.getInputStream();
                      FileOutputStream fileOutputStream = new FileOutputStream(file)) {
 

@@ -23,7 +23,7 @@ public class ExcelComparatorService {
                 throw new IOException("В первом файле нет листов.");
             }
 
-            for (int i = 0; i < workbookYT.getNumberOfSheets(); i++) {
+            for (int i = 0; i < 6; i++) { // Надо бы сравнивать с workbookYT.getNumberOfSheets(), но есть ненужные листы в таблицах
                 Sheet sheet = workbookYT.getSheetAt(i);
                 Row headerRow = sheet.getRow(1); // Получаем вторую строку (индекс 1)
 
@@ -62,30 +62,31 @@ public class ExcelComparatorService {
 
             for (int i = 0; i < workbook1C.getNumberOfSheets(); i++) {
                 Sheet sheet = workbook1C.getSheetAt(i);
-                Row headerRow = sheet.getRow(0); // Получаем вторую строку (индекс 1)
+                if (sheet.getSheetName().startsWith("EN")) {
+                    Row headerRow = sheet.getRow(0); // Получаем вторую строку (индекс 1)
 
-                if (headerRow == null) {
-                    throw new IOException("Второй строки нет в листе " + (i + 1));
-                }
+                    if (headerRow == null) {
+                        throw new IOException("Второй строки нет в листе " + (i + 1));
+                    }
 
-                for (int col = 0; col < headerRow.getPhysicalNumberOfCells(); col++) {
-                    Cell cell = headerRow.getCell(col);
-                    if (cell != null) {
-                        String value = cellToString(cell);
-                        List<String> columnValues = new ArrayList<>();
+                    for (int col = 0; col < headerRow.getPhysicalNumberOfCells(); col++) {
+                        Cell cell = headerRow.getCell(col);
+                        if (cell != null) {
+                            String value = cellToString(cell);
+                            List<String> columnValues = new ArrayList<>();
 
-                        // Собираем данные с 14 по 29 ячейку (индексы 13-28)
-                        for (int rowIndex = 13; rowIndex <= 28; rowIndex++) {
-                            Row dataRow = sheet.getRow(rowIndex);
-                            if (dataRow != null) {
-                                Cell dataCell = dataRow.getCell(col);
-                                if (dataCell != null) {
-                                    columnValues.add(cellToString(dataCell));
+                            // Собираем данные с 14 по 29 ячейку (индексы 13-28)
+                            for (int rowIndex = 13; rowIndex <= 28; rowIndex++) {
+                                Row dataRow = sheet.getRow(rowIndex);
+                                if (dataRow != null) {
+                                    Cell dataCell = dataRow.getCell(col);
+                                    if (dataCell != null) {
+                                        columnValues.add(cellToString(dataCell));
+                                    }
                                 }
                             }
+                            result1C.put(value, columnValues); // Сохраняем пару value - список значений
                         }
-
-                        result1C.put(value, columnValues); // Сохраняем пару value - список значений
                     }
                 }
             }
