@@ -35,3 +35,14 @@ button.for-button {
     height: auto; /* Автоматическая высота для сохранения соотношения сторон */
     border-radius: 10px; /* Закругленные углы изображений */
 }
+
+table {
+            border-collapse: collapse;
+            margin: 20px;
+            width: 300px;
+        }
+th, td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: left;
+        }

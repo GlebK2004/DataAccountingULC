@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -30,7 +32,23 @@
 <br>
 <br>
 <h1> Тест</h1>
-
+<th:block th:each="entry : ${groupsList}">
+    <h2 th:text="${entry.key}"></h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Элементы</th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="row : ${entry.value}">
+            <tr>
+                <td th:text="${row.get(0)} + ' ' + ${row.get(1)}"></td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+</th:block>
 
 <br>
 <br>

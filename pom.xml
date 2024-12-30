@@ -59,7 +59,10 @@
 			<version>5.3.30</version> <!-- Убедитесь, что версия совпадает с `spring-web` -->
 			<scope>test</scope>
 		</dependency>
-
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
 
 		<!-- Google API Client -->
 		<dependency>

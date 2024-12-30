@@ -148,47 +148,6 @@ public class ExcelComparatorService {
         return result;
 
 
-
-//        // Чтение второго файла и проверка на совпадения
-//        try (Workbook workbook2 = new XSSFWorkbook(file2.getInputStream())) {
-//            if (workbook2.getNumberOfSheets() == 0) {
-//                throw new IOException("Во втором файле нет листов.");
-//            }
-//
-//            for (int i = 0; i < workbook2.getNumberOfSheets(); i++) {
-//                Sheet sheet = workbook2.getSheetAt(i);
-//                for (int col = 0; col < sheet.getRow(0).getPhysicalNumberOfCells(); col++) {
-//                    Row row = sheet.getRow(0);
-//                    Cell cell = row.getCell(col);
-//
-//                    if (cell != null) {
-//                        String keyValue = cellToString(cell);
-//                        List<List<String>> existingValues = result.get(keyValue);
-//
-//                        // Если совпадение найдено, добавляем данные из второго файла
-//                        if (existingValues != null) {
-//                            List<String> columnValuesFromFile2 = new ArrayList<>();
-//
-//                            for (int rowIndex = 13; rowIndex <= 28; rowIndex++) {
-//                                Row dataRow = sheet.getRow(rowIndex);
-//                                if (dataRow != null) {
-//                                    Cell dataCell = dataRow.getCell(col);
-//                                    if (dataCell != null) {
-//                                        columnValuesFromFile2.add(cellToString(dataCell));
-//                                    }
-//                                }
-//                            }
-//
-//                            // Обновляем все результаты с данными из второго файла
-//                            for (List<String> values : existingValues) {
-//                                values.addAll(columnValuesFromFile2); // Объединяем значения
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        }
-
     }
 
     // Метод для приведения ячейки к строке

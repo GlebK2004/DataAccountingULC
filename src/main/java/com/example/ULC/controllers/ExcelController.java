@@ -5,6 +5,7 @@ import com.example.ULC.services.ExcelComparatorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -33,16 +34,16 @@ public class ExcelController {
 //        }
 //    }
     @GetMapping("/")
-    public String mainPage()
+    public String mainPage(Model model)
     {
         return "main_page";
     }
 
     @GetMapping("/groups")
-    public String downloadFiles() throws IOException {
+    public String downloadFiles(Model model) throws IOException {
        File fileYT = downloadService.downloadExcel(ID_YT);
        File file1C = downloadService.downloadExcel(ID_1C);
-       excelComparatorService.compareExcelFiles(fileYT, file1C);
+       model.addAttribute("groupsList", excelComparatorService.compareExcelFiles(fileYT, file1C));
        return "groups";
     }
 
